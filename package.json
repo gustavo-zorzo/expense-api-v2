@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx --watch ./infra/server/index.ts"
+    "dev": "tsx --watch ./infra/server/index.ts",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "keywords": [],
   "author": "",
@@ -15,6 +17,7 @@
   "devDependencies": {
     "@types/node": "^25.6.0",
     "@types/pg": "^8.20.0",
+    "prettier": "^3.8.3",
     "prisma": "^7.7.0",
     "prisma-kysely": "^3.1.0",
     "tsx": "^4.21.0",
