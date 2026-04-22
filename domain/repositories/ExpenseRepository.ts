@@ -1,12 +1,9 @@
-import type { Expense } from "../../infra/database/kysely/types/types.js";
+import type { Expense, ExpenseCreationProps, ExpenseUpdateProps } from "./entities/Expense.js";
 
 export interface ExpenseRepository {
   findAll(): Promise<Expense[]>;
   findById(id: number): Promise<Expense | null>;
-  create(data: Omit<Expense, "id" | "createdAt" | "updatedAt">): Promise<void>;
-  update(
-    id: number,
-    data: Partial<Omit<Expense, "id" | "createdAt" | "updatedAt">>,
-  ): Promise<void>;
+  create(data: ExpenseCreationProps): Promise<void>;
+  update(id: number, data: ExpenseUpdateProps): Promise<void>;
   delete(id: number): Promise<void>;
 }

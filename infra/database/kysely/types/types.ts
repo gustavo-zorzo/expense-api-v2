@@ -11,7 +11,7 @@ export type Expense = {
     category: string;
     date: Timestamp;
     createdAt: Generated<Timestamp>;
-    updatedAt: Timestamp;
+    updatedAt: Generated<Timestamp>;
 };
 export type DB = {
     Expense: Expense;
