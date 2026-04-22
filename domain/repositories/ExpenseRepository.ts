@@ -1,4 +1,4 @@
-import type { Expense, ExpenseCreationProps, ExpenseUpdateProps } from "./entities/Expense.js";
+import type { Expense, ExpenseCreationProps, ExpenseUpdateProps } from "../entities/Expense.js";
 
 export interface ExpenseRepository {
   findAll(): Promise<Expense[]>;
