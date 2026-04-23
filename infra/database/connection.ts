@@ -1,4 +1,5 @@
 import { Pool } from "pg";
+import "dotenv/config";
 import { Kysely, PostgresDialect } from "kysely";
 import type { DB } from "./kysely/types/types.js";
 

@@ -19,7 +19,8 @@ export class ExpenseController {
   ) {}
   registerRouter(fastify: FastifyInstance) {
     fastify.post<{ Body: ExpenseCreationProps }>("/expenses", async (request, reply) => {
-      reply.status(201).send({ expense: await this.createExpense.execute(request.body) });
+      await this.createExpense.execute(request.body);
+      reply.status(201).send();
     });
     fastify.get("/expenses", async (request, reply) => {
       reply.status(200).send({ expenses: await this.listExpense.execute() });
