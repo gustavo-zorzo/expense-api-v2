@@ -4,12 +4,15 @@ import { container } from "../di/container.js";
 import { TYPES } from "../../app/di/types.js";
 import { ExpenseController } from "../controller/ExpenseController.js";
 import { ExpenseNotFoundException } from "../../app/exceptions/ExpenseNotFoundException.js";
+import { ZodError } from "zod";
 
 async function main() {
   const fastify = Fastify({ logger: true });
   fastify.setErrorHandler((error: FastifyError, request: FastifyRequest, reply: FastifyReply) => {
     if (error instanceof ExpenseNotFoundException) {
       reply.status(404).send({ error: error.name, message: error.message });
+    } else if (error instanceof ZodError) {
+      reply.status(400).send({ error: error.name, message: error.issues });
     } else {
       reply.status(500).send({ error: error.name, message: error.message });
     }

@@ -7,6 +7,8 @@ import type { UpdateExpenseUseCase } from "../../app/usecases/UpdateExpenseUseCa
 import type { DeleteExpenseUseCase } from "../../app/usecases/DeleteExpenseUseCase.js";
 import type { FastifyInstance } from "fastify";
 import type { ExpenseCreationProps, ExpenseUpdateProps } from "../../domain/entities/Expense.js";
+import { createExpenseInput } from "../../app/dtos/input/CreateExpenseInput.js";
+import { updateExpenseInput } from "../../app/dtos/input/UpdateExpenseInput.js";
 
 @injectable()
 export class ExpenseController {
@@ -19,7 +21,8 @@ export class ExpenseController {
   ) {}
   registerRouter(fastify: FastifyInstance) {
     fastify.post<{ Body: ExpenseCreationProps }>("/expenses", async (request, reply) => {
-      await this.createExpense.execute(request.body);
+      const body = createExpenseInput.parse(request.body);
+      await this.createExpense.execute(body);
       reply.status(201).send();
     });
     fastify.get("/expenses", async (request, reply) => {
@@ -33,8 +36,9 @@ export class ExpenseController {
     fastify.put<{ Body: ExpenseUpdateProps; Params: { id: string } }>(
       "/expenses/:id",
       async (request, reply) => {
+        const body = updateExpenseInput.parse(request.body);
         reply.status(200).send({
-          expense: await this.updateExpense.execute(Number(request.params.id), request.body),
+          expense: await this.updateExpense.execute(Number(request.params.id), body),
         });
       },
     );
